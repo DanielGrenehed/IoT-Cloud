@@ -5,7 +5,7 @@
 
 ## System Overview
 
-esp32 - Thingsboard - PostgreSQL   
+esp32 - (Linode, Ubuntu running:) Thingsboard - PostgreSQL   
 
 SMHI - cron (python script) - thingsboard
 
