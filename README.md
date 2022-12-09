@@ -6,7 +6,7 @@ Collecting indoor temperature and humidity
 
 ## System Overview
 
-esp32 - (Linode, Ubuntu running:) Thingsboard - PostgreSQL   
+esp32 (with DHT22 sensor) - (Linode, Ubuntu running:) Thingsboard - PostgreSQL   
 
 SMHI - cron (python script) - thingsboard
 
