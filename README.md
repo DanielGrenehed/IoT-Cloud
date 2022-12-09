@@ -2,6 +2,7 @@
 
 
 ## About The Project
+Collecting indoor temperature and humidity
 
 ## System Overview
 
