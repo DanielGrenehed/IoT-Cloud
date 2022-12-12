@@ -10,8 +10,6 @@
 WiFiClient espClient;
 // Initialize ThingsBoard instance
 ThingsBoard tb(espClient);
-// the Wifi radio's status
-int status = WL_IDLE_STATUS;
 
 // DHT object
 DHTesp dht;
@@ -22,7 +20,7 @@ DHTesp dht;
 int quant = 20;
 
 // Period of sending a temperature/humidity data.
-int send_delay = 2000;
+int send_delay = 10000;
 
 // Time passed after temperature/humidity data was sent, milliseconds.
 int send_passed = 0;
@@ -32,8 +30,7 @@ int send_passed = 0;
 void setup() {
   // Initialize serial for debugging
   Serial.begin(SERIAL_DEBUG_BAUD);
-  WiFi.begin(WIFI_AP_NAME, WIFI_PASSWORD);
-  InitWiFi();
+  ConnectToWiFi();
 
   // Initialize temperature sensor
   dht.setup(DHT_PIN, DHTesp::DHT22);
@@ -45,29 +42,54 @@ void loop() {
   send_passed += quant;
   // Reconnect to WiFi, if needed
   if (WiFi.status() != WL_CONNECTED) {
-    reconnect();
+    ConnectToWiFi();
     return;
   }
 
   // Reconnect to ThingsBoard, if needed
   if (!tb.connected()) {
-
-    // Connect to the ThingsBoard
-    Serial.print("Connecting to: ");
-    Serial.print(THINGSBOARD_SERVER);
-    Serial.print(" with token ");
-    Serial.println(TOKEN);
-    if (!tb.connect(THINGSBOARD_SERVER, TOKEN)) {
-      Serial.println("Failed to connect");
-      return;
-    }
-    Serial.println("Connected!");
+    ConnectToThingsboard();
   }
 
 
   // Check if it is a time to send DHT22 temperature and humidity
   if (send_passed > send_delay) {
-    Serial.println("Sending data...");
+    SendData();
+    send_passed = 0;
+  }
+
+  // Process messages
+  tb.loop();
+}
+
+void ConnectToWiFi() {
+  // Loop until we're reconnected
+  if (WiFi.status() != WL_CONNECTED) {
+    WiFi.begin(WIFI_AP_NAME, WIFI_PASSWORD);
+    while (WiFi.status() != WL_CONNECTED) {
+      delay(500);
+      Serial.print(".");
+    }
+    Serial.println("Connected to AP");
+    Serial.println(WiFi.localIP());
+  }
+}
+
+void ConnectToThingsboard() {
+    // Connect to the ThingsBoard
+    Serial.print("Connecting to: ");
+    Serial.print(THINGSBOARD_SERVER);
+    Serial.print(" with token ");
+    Serial.println(TOKEN);
+    if (!tb.connect(THINGSBOARD_SERVER, THINGSBOARD_TOKEN)) {
+      Serial.println("Failed to connect");
+      return;
+    }
+    Serial.println("Connected!");
+}
+
+void SendData() {
+    Serial.print(".");
 
     // Uploads new telemetry to ThingsBoard using MQTT. 
     // See https://thingsboard.io/docs/reference/mqtt-api/#telemetry-upload-api 
@@ -80,36 +102,4 @@ void loop() {
       tb.sendTelemetryFloat("temperature", lastValues.temperature);
       tb.sendTelemetryFloat("humidity", lastValues.humidity);
     }
-
-    send_passed = 0;
-  }
-
-  // Process messages
-  tb.loop();
-}
-
-void InitWiFi()
-{
-  Serial.println("Connecting to AP ...");
-  // attempt to connect to WiFi network
-
-  WiFi.begin(WIFI_AP_NAME, WIFI_PASSWORD);
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
-  }
-  Serial.println("Connected to AP");
-}
-
-void reconnect() {
-  // Loop until we're reconnected
-  status = WiFi.status();
-  if ( status != WL_CONNECTED) {
-    WiFi.begin(WIFI_AP_NAME, WIFI_PASSWORD);
-    while (WiFi.status() != WL_CONNECTED) {
-      delay(500);
-      Serial.print(".");
-    }
-    Serial.println("Connected to AP");
-  }
 }

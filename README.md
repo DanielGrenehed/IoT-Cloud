@@ -10,3 +10,9 @@ esp32 (with DHT22 sensor) - (Linode, Ubuntu running:) Thingsboard - PostgreSQL
 
 SMHI - cron (python script) - thingsboard
 
+## Security
+
+Use MQTT over SSL 
+
+
+REST API Client - automatically create users and devices
