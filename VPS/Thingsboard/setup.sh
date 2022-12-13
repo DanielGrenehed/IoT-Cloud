@@ -35,5 +35,6 @@ then
 fi
 
 echo "Installing thingsboard"
+cd
 sudo /usr/share/thingsboard/bin/install/install.sh --loadDemo
 sudo service thingsboard start
