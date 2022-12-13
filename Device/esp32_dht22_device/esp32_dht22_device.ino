@@ -80,7 +80,7 @@ void ConnectToThingsboard() {
     Serial.print("Connecting to: ");
     Serial.print(THINGSBOARD_SERVER);
     Serial.print(" with token ");
-    Serial.println(TOKEN);
+    Serial.println(THINGSBOARD_TOKEN);
     if (!tb.connect(THINGSBOARD_SERVER, THINGSBOARD_TOKEN)) {
       Serial.println("Failed to connect");
       return;

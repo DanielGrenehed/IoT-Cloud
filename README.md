@@ -6,18 +6,23 @@ Collecting indoor temperature and humidity
 
 ## System Overview
 
-esp32 (with DHT22 sensor) - (Linode, Ubuntu running:) Thingsboard - PostgreSQL   
+### Built With
+* Thingsboard
+* PostgreSQL
+* C++ and Python
 
-SMHI - cron (python script) - thingsboard
 
-## Security
+## Security Considerations
 
 Use MQTT over SSL 
 
+## Scalability
+No
 
-REST API Client - automatically create users and devices
 
 ## Setup
+These instructions are for setting up this project on a device running debian linux, but the project was built and ran on a Linode VPS with 2GB ram running ubuntu.      
+
 Clone this repository:
 ```bash
 git clone https://github.com/DanielGrenehed/IoT-Cloud
@@ -34,3 +39,26 @@ There are a few accounts present:
 | System Administrator | sysadmin@thingsboard.org | sysadmin |
 | Tenant Administrator | tenant@thingsboard.org | tenant |
 | Customer User | customer@thingsboard.org | customer |
+
+### Setup device
+Sign in as a Tenant, go to Devices, click on the plus sign, then add new device. Name the device, go to credentials and add credentials. Provide an access token for the device, then click Add. Then in the Devices view, assign the new device to your customer.
+
+Now to create the firmware for your esp32, create a file named 'cred.h' in Device/esp32_dht22_device/ and define your configuration: 
+```C
+#define WIFI_AP_NAME        "YOUR_WIFI_SSID"
+#define WIFI_PASSWORD       "YOUR_WIFI_PASSWORD"
+#define THINGSBOARD_TOKEN   "YOUR_THINGSBOARD_DEVICE_TOKEN"
+#define THINGSBOARD_SERVER  "YOUR_THINGSBOARD_SERVER"
+```
+Then compile and flash your esp32, connecting the dht22 data pin to esp32 pin G23. The code requires DHTesp , WiFi and ThingsBoard libraries installed to compile.   
+   
+Now If all went well the esp should begin publishing to thingsboard.
+
+### Setup SMHI api data fetching
+As Tenant, go to Devices and add a device with an access token. Then run the setup_job.sh script in the VPS/SMHI subfolder and provide the thingsboard server address and the newly added device access token. This will create a crontab running once every hour that gets the temperature of the preprogrammed station(in the api_fetch.py script) and posts it to thingsboard. Assign the new device to the customer.
+
+### Create a Dashboard
+As Tenant, go to Dashboards, and add a new dashboard and give it a flashy title, save then open the new empty dashboard. Click the orange pen button in the lower right corner to edit the dashboard. Add a new widget, maybe a simple card to display the latest value, add a datasource, create an entity, set filter type to single entity and type as device. Now select the device you want to add then select datakeys and add the widget.   
+To add a chart is basically done the same way but you can add multiple datasources.
+
+
