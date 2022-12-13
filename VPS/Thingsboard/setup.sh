@@ -14,8 +14,8 @@ psql_password='thingsboard'
 psql_user='thingsboard'
 
 sudo -u postgres psql -c "CREATE DATABASE thingsboard;"
-sudo -u postgres psql -c "CREATE USER ${psql_user} WITH PASSWORD '${psql_password}';"
-sudo -u postgres psql -c "GRANT ALL PRIVILIGES ON DATABASE 'thingsboard' to ${psql_user};"
+sudo -u postgres psql -c "CREATE USER ${psql_user} WITH PASSWORD ${psql_password};"
+sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE thingsboard to ${psql_user};"
 
 echo "Configuring thingsboard"
 tb_config="# DB Configuration   \nexport DATABASE_TS_TYPE=sql \nexport SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/thingsboard   \nexport SPRING_DATASOURCE_USERNAME=${psql_user}  \nexport SPRING_DATASOURCE_PASSWORD=${psql_password} \n# Specify partitioning size for timestamp key-value storage. Allowed values: DAYS, MONTHS, YEARS, INDEFINITE. \nexport SQL_POSTGRES_TS_KV_PARTITIONING=MONTHS   \n"
