@@ -14,7 +14,7 @@ psql_password='thingsboard'
 psql_user='thingsboard'
 
 sudo -u postgres psql -c "CREATE DATABASE thingsboard;"
-sudo -u postgres psql -c 'CREATE USER ${psql_user} WITH PASSWORD "${psql_password};"'
+sudo -u postgres psql -c "CREATE USER ${psql_user} WITH PASSWORD '${psql_password};'"
 sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE thingsboard to ${psql_user};"
 
 echo "Configuring thingsboard"
