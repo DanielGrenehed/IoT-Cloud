@@ -62,3 +62,7 @@ As Tenant, go to Dashboards, and add a new dashboard and give it a flashy title,
 To add a chart is basically done the same way but you can add multiple datasources.
 
 
+
+
+## result
+[![architecture image](https://github.com/DanielGrenehed/IoT-Cloud/blob/main/res/thingsboard.png)]()
