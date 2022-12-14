@@ -7,7 +7,7 @@ station = 97100#159880
 # Set the API endpoint
 api_endpoint = f'https://opendata-download-metobs.smhi.se/api/version/1.0/parameter/1/station/{station}/period/latest-hour/data.json'
 
-# Make the API request and get the response
+# Make the SMHI API request and get the response
 def getSMHIData():
 
     response = requests.get(api_endpoint)
@@ -51,7 +51,6 @@ headers = {
 }
 
 data = extractData(getSMHIData())
-# Set the URL for the HTTP request
 
 # Send the POST request to ThingsBoard
 response = requests.post(url, json=data)
