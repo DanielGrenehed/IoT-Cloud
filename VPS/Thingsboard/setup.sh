@@ -31,7 +31,7 @@ done
 
 if [ -n "${small}" ]
 then
-    echo 'export JAVA_OPTS="$JAVA_OPTS -Xms256M -Xmx256M"' >> /etc/thingsboard/conf/thingsboard.conf
+    sudo echo 'export JAVA_OPTS="$JAVA_OPTS -Xms256M -Xmx256M"' >> /etc/thingsboard/conf/thingsboard.conf
 fi
 
 echo "Installing thingsboard"

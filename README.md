@@ -11,10 +11,9 @@ Collecting indoor temperature and humidity
 * PostgreSQL
 * C++ and Python
 
-
 ## Security Considerations
-
-Use MQTT over SSL 
+There are several things to do to make this somewhat secure. Consider using MPTTS (MQTT over SSL) for the device. One thing to note here is that the esp used does not have an HSM module and even while the 'cred.h' is excluded from git-commits, this does nothing in terms of hiding your WiFi and thingsboard credentials when on device and they are readable by anyone with access to the actual device and some basic hardware hacking experience.
+Running the setup in this repo will load the demo setup of thingsboard, this means there will be some accounts with default user/passwords, so if this is deployed open to the internet please consider changing, at least, the passwords of the users.
 
 ## Scalability
 No
@@ -27,7 +26,7 @@ Clone this repository:
 ```bash
 git clone https://github.com/DanielGrenehed/IoT-Cloud
 ```
-cd into VPS/Thingsboard and run the setup.sh file (You are responsible for your own computer, maybe don't run scripts from random github repos) this will install all dependencies, setup a PostgreSQL database, create a database and user for thingsboard then install and start thingsboard:
+cd into VPS/Thingsboard and run the setup.sh file (You are responsible for your own computer, maybe don't run scripts from random github repos) this will install all dependencies, setup a PostgreSQL database, create a database and user for thingsboard then install and start thingsboard, use ```-s``` if you set this up on a computer with 1GB of ram or less:
 ```
 sudo ./setup.sh
 ```
