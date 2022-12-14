@@ -9,7 +9,7 @@ Collecting indoor temperature and humidity
 ### Built With
 * Thingsboard
 * PostgreSQL
-* C++ and Python
+* C++, Shell and Python
 
 ## Security Considerations
 There are several things to do to make this somewhat secure. Consider using MPTTS (MQTT over SSL) for the device. One thing to note here is that the esp used does not have an HSM module and even while the 'cred.h' is excluded from git-commits, this does nothing in terms of hiding your WiFi and thingsboard credentials when on device and they are readable by anyone with access to the actual device and some basic hardware hacking experience.
