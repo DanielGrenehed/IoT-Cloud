@@ -6,7 +6,7 @@ Collecting indoor temperature and humidity
 
 ### Why Thingsboard
 Thingsboard can be run as a service on the public cloud but there is an open source version of it(that this project utalizes). To create a similar solution in the public cloud I would use
-AWS IoT Core to retrieve device messages, AWS IoT Analytics to store the data, and AWS QuickSight to visualize the data. In AWS I could use an S3 bucket as a cold store. I choose to use Thingsboard as it is easy to use and does not require a paid subscription to run. If you would like a cold store for things board you could connect it to AWS and use an S3 Bucket, thingsboard as it is does only use hot(or warm) storage.
+AWS IoT Core to retrieve device messages, AWS IoT Analytics to store the data, and AWS QuickSight to visualize the data. In AWS I could use an S3 bucket as a cold store. I choose to use Thingsboard as it is easy to use and does not require a paid subscription to run. If you would like a cold store for things board you could connect it to AWS and use an S3 Bucket. Thingsboard as it is, does only use hot(or warm) storage.
 
 ## System Overview
 [![architecture image](https://github.com/DanielGrenehed/IoT-Cloud/blob/main/res/architecture.png)]()
