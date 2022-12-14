@@ -5,7 +5,7 @@
 Collecting indoor temperature and humidity
 
 ## System Overview
-
+[![architecture image](https://github.com/DanielGrenehed/IoT-Cloud/blob/main/res/architecture.png)]()
 ### Built With
 * Thingsboard
 * PostgreSQL
