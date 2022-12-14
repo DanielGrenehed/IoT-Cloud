@@ -16,7 +16,8 @@ There are several things to do to make this somewhat secure. Consider using MPTT
 Running the setup in this repo will load the demo setup of thingsboard, this means there will be some accounts with default user/passwords, so if this is deployed open to the internet please consider changing, at least, the passwords of the users.
 
 ## Scalability
-In terms of being able to scale to millions of users and devices, this is not scalable. As of now, every device have to be flashed and set up manualy, one step to make it more scalable is to use bulk provisioning for devices. Even users can be automated using the thingsboard REST API. To handle more messages you are able to use a hybrid model for storage. You are able to configure thingsboard to use en eternal queue service like AWS SQS or Azure Service Bus instead of the in-memory one used by default. And you can use rule-chains to 
+In terms of being able to scale to millions of users and devices, this is not scalable. As of now, every device have to be flashed and set up manualy, one step to make it more scalable is to use bulk provisioning for devices. Even users can be automated using the thingsboard REST API. To handle more messages you are able to use a hybrid model for storage. You are able to configure thingsboard to use en eternal queue service like AWS SQS or Azure Service Bus instead of the in-memory one used by default. 
+Thingsboard is, as a platform, quite scalable. 
 
 
 ## Setup
